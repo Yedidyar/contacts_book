@@ -8,6 +8,10 @@ the current feature are:</br>
 * delete specific contact
 * delete all contacts
 </br>
+## how to run
+* step one: download python
+* step two: clone to the wannted dir
+* step three:on ~windows~ run on the Command line 
 I would be more than happy if you will learn from this repo.
 </br>
-### good luck😃###
+### good luck😀
