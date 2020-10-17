@@ -12,8 +12,8 @@ the current feature are:</br>
 # how to run
 </br>
 
-* step one: download python
-* step two: clone to the wannted dir
+* step one: download python3
+* step two: clone to the wanted dir
 * step three: 
 <ul>
   
@@ -25,7 +25,7 @@ the current feature are:</br>
  
 <ul>
   
-  on **UNIX** run on theTerminal</br>
+  on **UNIX** run on the Terminal</br>
  
           python3 run main.py
 </ul>
