@@ -28,6 +28,8 @@ def create_table_of_contacts():
     except OperationalError:
         print('table has already been created')
 
+create_table_of_contacts()
+
 
 # sql command that create new contact for more detail about the class that this func uses go to contacts.py
 def insert_contacts(contact):
