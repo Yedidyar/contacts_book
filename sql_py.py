@@ -28,6 +28,7 @@ def create_table_of_contacts():
     except OperationalError:
         print('table has already been created')
 
+        
 create_table_of_contacts()
 
 
