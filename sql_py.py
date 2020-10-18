@@ -1,24 +1,32 @@
 from sqlite3 import *
 from contacs import Contacts
 
-# create new data base
-conn = connect('contacs.db')
 
-# a cursor of connection
-c = conn.cursor()
+def init_db_connection():
+    # create new data base
+    con = connect('contacs.db')
+
+    # a cursor of connection
+    new_c = con.cursor()
+    return con, new_c
+
+
+conn, c = init_db_connection()
+
 
 # create a table if there is a table the output will be "table has already been created"
-try:
-    c.execute("""CREATE TABLE contacts
-        (
-        first text,
-        last  text,
-        number text,
-        address text
-        )
- """)
-except OperationalError:
-    print('table has already been created')
+def create_table_of_contacts():
+    try:
+        c.execute("""CREATE TABLE contacts
+            (
+            first text,
+            last  text,
+            number text,
+            address text
+            )
+     """)
+    except OperationalError:
+        print('table has already been created')
 
 
 # sql command that create new contact for more detail about the class that this func uses go to contacts.py
@@ -31,28 +39,28 @@ def insert_contacts(contact):
 # class of sql commands that's find contact by first and last name, phone number and by address
 class Find:
     @staticmethod
-    def get_by_first(first):
+    def get_contact_by_first_name(first):
         with conn:
             c.execute("SELECT * FROM contacts WHERE first=?", (first,))
             for i in c.fetchall():
                 print(i)
 
     @staticmethod
-    def get_by_last(last):
+    def get_contact_by_last_name(last):
         with conn:
             c.execute("SELECT * FROM contacts WHERE last=?", (last,))
             for i in c.fetchall():
                 print(i)
 
     @staticmethod
-    def get_by_number(number):
+    def get_contact_by_number(number):
         with conn:
             c.execute("SELECT * FROM contacts WHERE number=?", (number,))
             for i in c.fetchall():
                 print(i)
 
     @staticmethod
-    def get_by_address(address):
+    def get_contact_by_address(address):
         with conn:
             c.execute("SELECT * FROM contacts WHERE address=?", (address,))
             for i in c.fetchall():
@@ -60,7 +68,7 @@ class Find:
 
 
 # implementation of the Find class by cli input
-def find():
+def find_contact():
     try:
         find_command = int(input('which operator do you want to operate:'
                                  '\n(1)find by first name'
@@ -68,19 +76,20 @@ def find():
                                  '\n(3)find by phone number'
                                  '\n(4)find by address\n\n'))
         if find_command == 1:
-            Find.get_by_first(str(input('enter the value:')))
+            Find.get_contact_by_first_name(str(input('enter the value:')))
         elif find_command == 2:
-            Find.get_by_last(str(input('enter the value:')))
+            Find.get_contact_by_last_name(str(input('enter the value:')))
         elif find_command == 3:
-            Find.get_by_number(str(input('enter the value:')))
+            Find.get_contact_by_number(str(input('enter the value:')))
         elif find_command == 4:
-            Find.get_by_address(str(input('enter the value:')))
-    except:
+            Find.get_contact_by_address(str(input('enter the value:')))
+    except ValueError:
+        print('this input need must be an integer')
         print('the input is not correct')
 
 
 # update number by first and last name
-def update_number(first, last, number):
+def update_contact_number(first, last, number):
     with conn:
         c.execute('UPDATE contacts SET number =? WHERE first=? AND last=?', (number, first, last))
 
@@ -95,7 +104,7 @@ def create_contact():
 
 
 # showing the whole table
-def select_all():
+def select_all_contacts():
     print('this is all tables:\n\n')
     with conn:
         for rows in c.execute('SELECT * FROM contacts'):
@@ -103,7 +112,7 @@ def select_all():
 
 
 # showing specific row
-def select_specific(first, last):
+def select_specific_contact(first, last):
     print('this is the contact:\n\n')
     with conn:
         for rows in c.execute('SELECT * FROM contacts WHERE first=? AND last=?', (first, last)):
@@ -111,12 +120,17 @@ def select_specific(first, last):
 
 
 # delete all contacts from the table
-def delete_all():
+def delete_all_contacts():
     with conn:
         c.execute('DELETE FROM contacts')
 
 
 # delete specific contact table
-def delete_specific(first, last):
+def delete_specific_contact(first, last):
     with conn:
         c.execute('DELETE  FROM contacts WHERE first=? AND last=?', (first, last))
+
+
+def delete_verification():
+    return input('---------------------------------------------'
+                 '\nare you sure that you want to delete all data?[y/n]')
