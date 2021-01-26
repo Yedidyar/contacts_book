@@ -19,7 +19,7 @@ the current feature are:</br>
   
   on **windows** run on the Command line</br>
 
-          python run main.py
+    python main.py
 </ul>          
 </br>
  
@@ -27,7 +27,7 @@ the current feature are:</br>
   
   on **UNIX** run on the Terminal</br>
  
-          python3 run main.py
+    python3 main.py
 </ul>
 </br>
 I would be more than happy if you will learn from this repo.
